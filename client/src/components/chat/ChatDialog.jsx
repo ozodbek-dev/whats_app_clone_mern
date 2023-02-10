@@ -1,13 +1,16 @@
 import React from 'react';
-import {Box, Dialog} from "@mui/material";
+import {Dialog} from "@mui/material";
 import {Component, dialogStyle, LeftComponent, RightComponent} from "./ChatDialog.element";
 
 
 // components
 import Menu from './menu/Menu'
 import EmptyChat from "./emptyChat/EmptyChat";
+import ChatBox from "./chatbox/ChatBox";
+import {AccountState} from "../../context/AccountProvider";
 
 const ChatDialog = () => {
+    const {person} = AccountState();
     return (
         <Dialog
             open={true}
@@ -20,7 +23,9 @@ const ChatDialog = () => {
                     <Menu/>
                 </LeftComponent>
                 <RightComponent>
-                      <EmptyChat/>
+                    {
+                        !person ? <EmptyChat/> : <ChatBox/>
+                    }
                 </RightComponent>
             </Component>
         </Dialog>

@@ -5,14 +5,15 @@ import {qrCodeImage} from "../../constants/data";
 import {GoogleLogin} from "@react-oauth/google";
 import jwt_decode from 'jwt-decode'
 import {AccountState} from "../../context/AccountProvider";
+import {addUser} from "../../service/api";
 
 const LoginDialog = () => {
     const {setAccount}  = AccountState();
 
-    const onLoginSuccess = (res) => {
+    const onLoginSuccess = async(res) => {
         const decoded_data = jwt_decode(res.credential)
         setAccount(decoded_data) ;
-        
+        await addUser(decoded_data)
     }
     const onLoginError = err => {
         console.log(err.response.data.message)
