@@ -63,3 +63,18 @@ export const getMessages = async (id) => {
         console.log("Error while Getting Message Api ", e.message)
     }
 }
+
+export const uploadFile = async(data)=>{
+        const config = {
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        }
+    try {
+            console.log("upload")
+        return await axios.post(`${url}/message/file/upload`, data, config)
+    }   catch (e){
+        console.log("Error while uploading file", e.message)
+    }
+
+}

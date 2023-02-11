@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, Fragment} from 'react';
 import {getUsers} from "../../../service/api";
 import {Box} from "@mui/material";
 import Conversation from "./Conversation";
@@ -26,10 +26,10 @@ const Conversations = ({text}) => {
         <Box>
             {
                 users.map(user => (
-                    user.sub !== account.sub && <>
-                        <Conversation key={user._id} user={user}/>
+                    user.sub !== account.sub && <Fragment key={user.sub}>
+                        <Conversation  user={user}/>
                         <StyledDivider/>
-                    </>
+                    </Fragment>
                 ))
             }
         </Box>

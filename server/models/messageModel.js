@@ -22,7 +22,8 @@ export default reducedModel("Message", (Schema, ObjectId) => {
         type:{
             type: String,
             required: true
-        }
+        },
+        file_url:String
 
 
     }, {timestamps: true})

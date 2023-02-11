@@ -98,6 +98,7 @@ export const ClipIcon = styled(AttachFile)`
 //Message styles
 export const Own = styled(Box)`
   display: flex;
+  position: relative;
   background: #dcf8c6;
   max-width: 60%;
   margin-left: auto;
@@ -117,6 +118,7 @@ export const MsgWrapper = styled(Box)`
 
 
 export const Msg = styled(Typography)`
+
   font-size: 14px;
   padding: 0 25px 0 5px;
 `
@@ -125,9 +127,59 @@ export const Time = styled(Typography)`
   color: #919191;
   margin-top: 6px;
   word-break: keep-all;
-  margin-top: auto;
+  margin-top: auto
+`
+export const FileTime = styled(Typography)`
+  display: flex;
+  align-items: center;
+ position: absolute;
+  font-size: 10px;
+  color: #919191;
+  word-break: keep-all;
+  bottom: 0;
+  right: 0;
+  margin:0;
+  span{
+    align-self: flex-end;
+  }
+  
+  svg{
+    margin-left: 5px;
+    box-sizing: border-box;
+    border :1px solid rgba(0,0,0,.3);
+    margin-right: 5px;
+     border-radius: 50%;
+    padding: 2px;
+    cursor:pointer;
+    transition: all .5 ease;
+    &:hover{
+      background: rgba(0,0,0,0.1);
+      color:balck;
+      transform:scale(1.02);
+    }
+    &:active{
+      background: rgba(0,0,0,0.05);
+      color:balck;
+      transform:scale(1.1);
+    }
+  }
+
 `
 export const MsgContainer = styled(Box)`
   padding: 1px 5vmax;
+`
+
+export const StyledImage = styled(Box)`
+   img{
+     max-width: 100%;
+   }
+`
+export const FileMsg = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+     img{
+       max-width: 50px;
+       margin-right: 10px;
+     }
 `
 
