@@ -1,29 +1,56 @@
-import React from 'react';
 import {Box, Typography} from "@mui/material";
-import {ConversationComponent,Image} from "./Conversation.element";
+import {ConversationComponent, Image} from "./Conversation.element";
 import {AccountState} from "../../../context/AccountProvider";
-import {setConversation} from "../../../service/api";
+import {getConversation, setConversation} from "../../../service/api";
+import {useEffect, useState} from "react";
+import {formatDate} from "../../../utils/common-utils";
 
 const Conversation = ({user}) => {
 
-    const{setPerson,account} =  AccountState();
-
-    const getUser = async()=>{
+    const {setPerson, account, activeUsers, newMessageFlag} = AccountState();
+    const [msg, setMsg] = useState()
+    const getUser = async () => {
         setPerson(user)
-        await setConversation({senderId:account.sub,receiverId:user.sub})
+        await setConversation({
+            senderId: account.sub, receiverId: user.sub
+        })
     }
-    return (
-        <ConversationComponent onClick={getUser}>
+    useEffect(() => {
+        const getConverSationDetails = async () => {
+            const data = await getConversation({
+                senderId: account.sub, receiverId: user.sub
+            });
+            setMsg({
+                text: data?.message, timestamp: data?.updatedAt
+            })
+        }
+        getConverSationDetails()
+    }, [newMessageFlag])
+    return (<ConversationComponent onClick={getUser}>
+        <Box>
+            <Image src={user.picture} alt="dp"/>
+        </Box>
+        <Box>
+            <Typography>
+                {user.name}<br/>({activeUsers?.find(u => u.sub === user.sub) ? "Online" : "Offline"})
+            </Typography>
+            {
+              msg &&  msg.text && <Typography>
+                    {formatDate(msg.createdAt)}
+                </Typography>
+            }
+        </Box>
+        {
+            msg &&
             <Box>
-                <Image src={user.picture} alt="dp"/>
+                <Typography>
+                    {
+                        msg.text
+                    }
+                </Typography>
             </Box>
-            <Box>
-                 <Typography>
-                     {user.name}
-                 </Typography>
-            </Box>
-        </ConversationComponent>
-    );
+        }
+    </ConversationComponent>);
 };
 
 export default Conversation;

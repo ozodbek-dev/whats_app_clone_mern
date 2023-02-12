@@ -43,7 +43,6 @@ const Message = ({msg}) => {
 
 
 const FileContent = ({msg}) => {
-    console.log(msg)
     let file;
 
     if (msg && msg.file_url) {
